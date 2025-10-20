@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Destille Bernie's Keller</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* Basic Global Styles */
+        :root {
+            --primary-color: #5A2E1D; /* Dark brown */
+            --whatsapp-green: #25D366; /* WhatsApp green */
+            --text-color: #333;
+            --font-sans: 'Roboto', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-sans);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-sans);
+            color: var(--primary-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        /* Header */
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-sizing: border-box;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .contact-buttons a {
+            background: var(--whatsapp-green);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            font-size: 0.9em;
+            font-weight: 700;
+        }
+
+        .contact-buttons a:hover {
+            background: #128C7E;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 20px 20px;
+            text-align: center;
+            background: #f8f8f8;
+        }
+
+        .hero h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            background: var(--whatsapp-green);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .cta-button:hover {
+            background: #128C7E;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 5px;
+        }
+
+        .close-button {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .close-button:hover {
+            color: var(--primary-color);
+        }
+
+        #whatsappForm label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        #whatsappForm input,
+        #whatsappForm select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .whatsapp-submit-btn {
+            background: var(--whatsapp-green);
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .whatsapp-submit-btn:hover {
+            background: #128C7E;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .hero h2 {
+                font-size: 1.5em;
+            }
+
+            .hero p {
+                font-size: 1em;
+            }
+
+            .cta-button {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <h1>Destille Bernie's Keller</h1>
+        </div>
+        <div class="contact-buttons">
+            <a href="#" onclick="openModal(); return false;" aria-label="Reservieren per WhatsApp">
+                <i class="fab fa-whatsapp"></i> Reservieren
+            </a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h2>Willkommen bei Bernie's Keller</h2>
+        <p>Genießen Sie traditionelle Mosel-Küche in gemütlicher Atmosphäre.</p>
+        <a href="#" onclick="openModal(); return false;" class="cta-button">
+            <i class="fab fa-whatsapp"></i> Tisch reservieren
+        </a>
+    </section>
+
+    <div id="reservationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">×</span>
+            <h3>Reservierung per WhatsApp</h3>
+            <form id="whatsappForm" onsubmit="sendWhatsAppReservation(event)">
+                <label for="name">Name*</label>
+                <input type="text" id="resName" name="name" required placeholder="Max Mustermann">
+
+                <label for="date">Datum*</label>
+                <input type="date" id="resDate" name="date" required min="2025-01-01">
+
+                <label for="time">Uhrzeit*</label>
+                <input type="time" id="resTime" name="time" required min="17:00" max="21:00" step="900">
+
+                <label for="guests">Anzahl Personen*</label>
+                <select id="resGuests" name="guests" required>
+                    <option value="1">1 Person</option>
+                    <option value="2">2 Personen</option>
+                    <option value="3">3 Personen</option>
+                    <option value="4" selected>4 Personen</option>
+                    <option value="5">5 Personen</option>
+                    <option value="6">6 Personen</option>
+                    <option value="7">7 Personen</option>
+                    <option value="8">8 Personen</option>
+                    <option value="9+">9+ (Bitte anrufen)</option>
+                </select>
+
+                <button type="submit" class="whatsapp-submit-btn">
+                    <i class="fab fa-whatsapp"></i> Reservierung senden
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const WHATSAPP_NUMBER = "491739000432";
+
+        function sendWhatsAppReservation(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('resName').value;
+            const date = document.getElementById('resDate').value;
+            const time = document.getElementById('resTime').value;
+            const guests = document.getElementById('resGuests').value;
+
+            if (!name || !date || !time || !guests) {
+                alert("Bitte füllen Sie alle markierten Felder aus.");
+                return;
+            }
+
+            const dateParts = date.split('-');
+            const formattedDate = dateParts[2] + '.' + dateParts[1] + '.' + dateParts[0];
+
+            const message = `Hallo Bernie's Keller,\n\nTischreservierung:\nName: ${name}\nDatum: ${formattedDate}\nUhrzeit: ${time} Uhr\nPersonen: ${guests}\n\nVielen Dank!`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+            closeModal();
+            window.open(whatsappLink, '_blank');
+        }
+
+        function openModal() {
+            document.getElementById('reservationModal').style.display = "block";
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('resDate').setAttribute('min', today);
+        }
+
+        function closeModal() {
+            document.getElementById('reservationModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('reservationModal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
