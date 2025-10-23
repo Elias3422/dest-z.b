@@ -3,211 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Destille Bernie's Keller</title>
+    <title>Restaurant Destille Bernie's Keller – Mosel Genuss & Direkte Reservierung</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght:400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* Basic Global Styles */
+        
+        /* 1. GLOBALE STILE & TYPOGRAPHIE        */
+        
         :root {
-            --primary-color: #5A2E1D; /* Dark brown */
-            --whatsapp-green: #25D366; /* WhatsApp green */
+            --primary-color: #5A2E1D; /* Dunkles Keller-Braun */
+            --accent-color: #E44D26; /* Rot/Orange Akzent (Wein) */
             --text-color: #333;
+            --light-bg: #F8F8F8;
+            --font-serif: 'Playfair Display', serif;
             --font-sans: 'Roboto', sans-serif;
+            --whatsapp-green: #25D366;
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: var(--font-sans);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; padding: 0; font-family: var(--font-sans); color: var(--text-color); line-height: 1.6; overflow-x: hidden; }
+        h1, h2, h3 { font-family: var(--font-serif); color: var(--primary-color); }
+        h2 { font-size: 2.8em; margin-bottom: 0.5em; font-weight: 700; }
+        a { text-decoration: none; color: var(--accent-color); transition: color 0.3s; }
 
-        h1, h2, h3 {
-            font-family: var(--font-sans);
-            color: var(--primary-color);
-        }
-
-        a {
-            text-decoration: none;
-            color: var(--primary-color);
-        }
-
-        /* Header */
+        
+        /* 2. HEADER & NAVIGATION               */
+        
         header {
-            background: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            box-sizing: border-box;
+            background: rgba(90, 46, 29, 0.95); color: white; padding: 10px 5%; display: flex; justify-content: space-between; align-items: center;
+            position: fixed; width: 90%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
         }
-
-        .logo h1 {
-            margin: 0;
-            font-size: 1.5em;
+        header.scrolled { padding: 5px 5%; }
+        .logo h1 { margin: 0; font-size: 1.5em; color: white; }
+        nav { display: flex; }
+        nav a { 
+            color: white; margin: 0 15px; padding: 5px 0; position: relative; transition: color 0.3s;
+            font-weight: 500;
         }
+        nav a:hover { color: var(--accent-color); }
+        nav a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 50%;
+            background-color: var(--accent-color); transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+            transform: translateX(-50%);
+        }
+        nav a:hover::after { width: 100%; left: 0; transform: translateX(0); }
 
+        /* HEADER BUTTONS - Fix */
         .contact-buttons a {
-            background: var(--whatsapp-green);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            font-size: 0.9em;
-            font-weight: 700;
+            background: var(--accent-color); color: white; padding: 8px 15px; border-radius: 25px;
+            margin-left: 10px; 
+            display: flex; align-items: center; justify-content: center; 
+            transition: background-color 0.3s, transform 0.2s;
+            font-size: 0.9em; font-weight: 700; line-height: 1.2em;
         }
+        .contact-buttons a.whatsapp-btn { background: var(--whatsapp-green); }
+        .contact-buttons a.whatsapp-btn:hover { background-color: #128C7E; transform: translateY(-2px); }
+        .menu-toggle { display: none; font-size: 1.8em; color: white; cursor: pointer; }
 
-        .contact-buttons a:hover {
-            background: #128C7E;
-        }
-
-        /* Hero Section */
+       
+        /* 3. HERO & ANIMATIONEN                */
+    
         .hero {
-            padding: 80px 20px 20px;
-            text-align: center;
-            background: #f8f8f8;
+            padding-top: 100px; text-align: center;
+            /* PFAD ZUM HINTERGRUNDBILD ANPASSEN */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('./bilder/hero.jpg');
+            background-size: cover; background-position: center; color: white; min-height: 80vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
-
-        .hero h2 {
-            font-size: 2em;
-            margin-bottom: 10px;
+        .hero-content { max-width: 900px; padding: 20px; }
+        .hero-content h2 { 
+            font-size: 4em; color: white; margin-bottom: 10px; opacity: 0;
+            transform: scale(0.9); animation: fadeInScale 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); animation-delay: 0.5s;
         }
-
-        .hero p {
-            font-size: 1.2em;
-            margin-bottom: 20px;
+        .hero-content p { 
+            font-size: 1.6em; color: #f0f0f0; margin-bottom: 40px; opacity: 0;
+            animation: fadeInSlideUp 1s forwards; animation-delay: 0.8s;
         }
+        @keyframes fadeInScale { to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeInSlideUp { to { opacity: 1; transform: translateY(0); } }
 
+        /* CTA BUTTONS - Fix */
         .cta-button {
+            background: var(--accent-color); color: white; padding: 18px 45px; border-radius: 5px;
+            font-weight: 700; font-size: 1.2em; transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(228, 77, 38, 0.4); opacity: 0;
+            animation: fadeInSlideUp 1s forwards; animation-delay: 1.1s;
+            display: inline-flex; align-items: center; justify-content: center;
+            line-height: 1.2em;
+            text-align: center;
+        }
+        .cta-button:hover { background-color: #c94021; box-shadow: 0 8px 25px rgba(228, 77, 38, 0.6); }
+
+       
+       
+        /* 7. FIXED ELEMENTS (NEU HINZUGEFÜGT)  */
+        
+        .fixed-whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px; 
+            z-index: 10000;
             background: var(--whatsapp-green);
             color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 1em;
+            padding: 15px 25px;
+            border-radius: 50px; 
             font-weight: 700;
-            display: inline-flex;
+            font-size: 1.1em;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.6);
+            transition: transform 0.3s, background-color 0.3s;
+            display: flex; 
             align-items: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .cta-button:hover {
-            background: #128C7E;
+        .fixed-whatsapp-button i {
+            margin-right: 8px;
+            font-size: 1.2em;
         }
 
-        /* Modal Styles */
+        .fixed-whatsapp-button:hover {
+            background-color: #128C7E;
+            transform: translateY(-2px);
+        }
+        
+        /* 6. RESPONSIVE DESIGN (Mobile)        */
+        
+        @media (max-width: 1000px) {
+            .hero-content h2 { font-size: 3em; }
+            .hero-content p { font-size: 1.4em; } 
+            .cta-button { padding: 15px 30px; font-size: 1.1em; }
+            .highlight-bar p { font-size: 1.2em; }
+            
+            nav { display: none; flex-direction: column; width: 100%; text-align: center; }
+            header { flex-wrap: wrap; }
+            .menu-toggle { display: block; }
+            .nav-open nav { display: flex; }
+            
+            .gallery-container { flex-direction: column; align-items: center; }
+            .image-placeholder, .staff-card { width: 100%; min-width: auto; height: 200px; }
+            .staff-card { height: auto; } /* Passt sich besser an den Inhalt an */
+            
+            .section { padding: 60px 5%; }
+            
+            
+            .modal-content {
+                margin: 5% auto; 
+            }
+            
+           
+            .specialty-item {
+                flex: 1 1 100%; 
+                max-width: 100%;
+            }
+
+            /* Anpassung des Fixed Buttons für mobile Ansicht */
+            .fixed-whatsapp-button {
+                bottom: 15px;
+                right: 15px;
+                padding: 12px 18px;
+                font-size: 0.9em;
+            }
+            .fixed-whatsapp-button i {
+                font-size: 1em;
+                margin-right: 5px;
+            }
+        }
+
+      
         .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
+            display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(0,0,0,0.8);
         }
-
         .modal-content {
-            background: white;
-            margin: 10% auto;
-            padding: 20px;
-            width: 90%;
-            max-width: 400px;
-            border-radius: 5px;
+            background-color: #fefefe; margin: 15% auto; padding: 30px; border: 1px solid #888;
+            width: 90%; max-width: 500px; border-radius: 10px; position: relative;
+        }
+       
+        #fullGalleryModal .modal-content {
+            max-width: 90%;
+            margin: 5% auto; 
         }
 
         .close-button {
-            float: right;
-            font-size: 24px;
-            cursor: pointer;
+            color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;
         }
-
-        .close-button:hover {
-            color: var(--primary-color);
-        }
-
-        #whatsappForm label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        #whatsappForm input,
-        #whatsappForm select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
+        .close-button:hover, .close-button:focus { color: #000; text-decoration: none; }
+        #whatsappForm label { display: block; margin-top: 10px; font-weight: bold; }
+        #whatsappForm input, #whatsappForm select { width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
         .whatsapp-submit-btn {
-            background: var(--whatsapp-green);
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            width: 100%;
-            font-size: 1em;
-            cursor: pointer;
+            background: var(--whatsapp-green); color: white; padding: 15px; border: none; border-radius: 5px;
+            width: 100%; font-size: 1.1em; cursor: pointer; transition: background-color 0.3s;
         }
-
-        .whatsapp-submit-btn:hover {
-            background: #128C7E;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 600px) {
-            .hero h2 {
-                font-size: 1.5em;
-            }
-
-            .hero p {
-                font-size: 1em;
-            }
-
-            .cta-button {
-                padding: 8px 15px;
-                font-size: 0.9em;
-            }
-        }
+        .whatsapp-submit-btn:hover { background-color: #128C7E; }
     </style>
 </head>
 
 <body>
-    <header>
+    <script src="https://elfsightcdn.com/platform.js" async></script>
+    
+    <header id="main-header">
         <div class="logo">
             <h1>Destille Bernie's Keller</h1>
         </div>
+          
+        <div class="social-icons">
+            <a href="https://www.facebook.com/share/17A2BNaAn5/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/restaurant_destille?igsh=MTZseHJzNWpza2luZg==" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+        
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <nav id="main-nav">
+            <a href="#start">Start</a>
+            <a href="#oeffnungszeiten">Öffnungszeiten</a> <a href="#speisekarte">Kulinarik</a>
+            <a href="#restaurant">Atmosphäre</a>
+            <a href="#veranstaltungen">Live Musik</a> <a href="#" onclick="openFullGalleryModal(); return false;">Alle Bilder</a>
+            <a href="#bewertungen">Stimmen</a>
+            <a href="#" onclick="openModal(); return false;">Reservieren</a>
+            <a href="#impressum-section">Impressum</a>
+        </nav>
+
         <div class="contact-buttons">
-            <a href="#" onclick="openModal(); return false;" aria-label="Reservieren per WhatsApp">
-                <i class="fab fa-whatsapp"></i> Reservieren
-            </a>
+            <a href="tel:065418689841" aria-label="Rufen Sie uns an"><i class="fas fa-phone"></i> Anrufen</a>
+            <a href="#" onclick="openModal(); return false;" class="whatsapp-btn" aria-label="Reservieren per WhatsApp"><i class="fab fa-whatsapp"></i> Reservieren</a>
         </div>
     </header>
 
-    <section class="hero">
-        <h2>Willkommen bei Bernie's Keller</h2>
-        <p>Genießen Sie traditionelle Mosel-Küche in gemütlicher Atmosphäre.</p>
-        <a href="#" onclick="openModal(); return false;" class="cta-button">
-            <i class="fab fa-whatsapp"></i> Tisch reservieren
-        </a>
+    <section id="start" class="hero">
+        <div class="hero-content">
+            <h2>Genuss trifft Tradition – Ihr Keller-Erlebnis an der Mosel.</h2>
+            <p>"Momente des Genusses, geschaffen für Sie."</p>
+            <a href="#" onclick="openModal(); return false;" class="cta-button">TISCH JETZT RESERVIEREN</a>
+        </div>
     </section>
 
+   
     <div id="reservationModal" class="modal">
         <div class="modal-content">
             <span class="close-button" onclick="closeModal()">×</span>
             <h3>Reservierung per WhatsApp</h3>
+            <p>Bitte füllen Sie die Felder aus. Wir senden Ihnen eine vorbereitete WhatsApp-Nachricht zur Bestätigung.</p>
             <form id="whatsappForm" onsubmit="sendWhatsAppReservation(event)">
-                <label for="name">Name*</label>
+                <label for="name">Ihr Name*</label>
                 <input type="text" id="resName" name="name" required placeholder="Max Mustermann">
 
                 <label for="date">Datum*</label>
@@ -230,55 +273,86 @@
                 </select>
 
                 <button type="submit" class="whatsapp-submit-btn">
-                    <i class="fab fa-whatsapp"></i> Reservierung senden
+                    <i class="fab fa-whatsapp"></i> Reservierung via WhatsApp senden
                 </button>
             </form>
         </div>
     </div>
 
-    <script>
-        const WHATSAPP_NUMBER = "491739000432";
+        const WHATSAPP_NUMBER = "491739000432"; 
 
+       
+        // 10.1 WHATSAPP RESERVIERUNGS-FUNKTION
+       
         function sendWhatsAppReservation(event) {
-            event.preventDefault();
+            event.preventDefault(); 
 
             const name = document.getElementById('resName').value;
             const date = document.getElementById('resDate').value;
             const time = document.getElementById('resTime').value;
             const guests = document.getElementById('resGuests').value;
-
+            
+            
             if (!name || !date || !time || !guests) {
-                alert("Bitte füllen Sie alle markierten Felder aus.");
-                return;
+                 alert("Bitte füllen Sie alle markierten Felder aus, um die Reservierung zu senden.");
+                 return;
             }
 
-            const dateParts = date.split('-');
+           
+            const dateParts = date.split('-'); 
             const formattedDate = dateParts[2] + '.' + dateParts[1] + '.' + dateParts[0];
 
-            const message = `Hallo Bernie's Keller,\n\nTischreservierung:\nName: ${name}\nDatum: ${formattedDate}\nUhrzeit: ${time} Uhr\nPersonen: ${guests}\n\nVielen Dank!`;
+            
+            const message = `Hallo Bernie's Keller Team,\n\nich möchte einen Tisch reservieren:\n\n👤 Name: ${name}\n🗓️ Datum: ${formattedDate}\n⏰ Uhrzeit: ${time} Uhr\n👨‍👩‍👧‍👦 Personen: ${guests}\n\nVielen Dank!`;
 
+            
             const encodedMessage = encodeURIComponent(message);
+
+            
             const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
 
+           
             closeModal();
             window.open(whatsappLink, '_blank');
         }
 
+      
+        // 10.2 MODAL LOGIK
+       
+        const modal = document.getElementById('reservationModal');
+        const fullGalleryModal = document.getElementById('fullGalleryModal'); 
+
         function openModal() {
-            document.getElementById('reservationModal').style.display = "block";
+            modal.style.display = "block";
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('resDate').setAttribute('min', today);
         }
-
         function closeModal() {
-            document.getElementById('reservationModal').style.display = "none";
+            modal.style.display = "none";
+        }
+        
+       
+        function openFullGalleryModal() {
+            fullGalleryModal.style.display = "block";
+            
+            
+            if (window.innerWidth <= 1000) {
+                 const header = document.getElementById('main-header');
+                 if (header.classList.contains('nav-open')) {
+                    toggleMenu(); 
+                 }
+            }
+        }
+        function closeFullGalleryModal() {
+            fullGalleryModal.style.display = "none";
         }
 
         window.onclick = function(event) {
-            if (event.target == document.getElementById('reservationModal')) {
+            if (event.target == modal) {
                 closeModal();
             }
+            if (event.target == fullGalleryModal) {
+                closeFullGalleryModal();
+            }
         }
-    </script>
-</body>
-</html>
+        
